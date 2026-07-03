@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ServiceRequest {
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String
+  department  Department
+  status      RequestStatus @default(OPEN)
+  requestedBy String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum Department {
+  IT
+  HR
+  FACILITIES
+  FINANCE
+}
+
+enum RequestStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CANCELLED
+}
