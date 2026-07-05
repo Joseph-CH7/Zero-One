@@ -1,32 +1,19 @@
-import { useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { CreateRequestPage } from './pages/CreateRequestPage'
 import { EditRequestPage } from './pages/EditRequestPage'
 import { RequestsPage } from './pages/RequestsPage'
-import type { ServiceRequest } from './types/request'
 import './App.css'
 
-type AppPage =
-  | { name: 'list' }
-  | { name: 'create' }
-  | { name: 'edit'; request: ServiceRequest }
-
 function App() {
-  const [page, setPage] = useState<AppPage>({ name: 'list' })
-
-  const goToList = () => setPage({ name: 'list' })
-
   return (
     <main className="app-shell">
-      {page.name === 'list' && (
-        <RequestsPage
-          onCreate={() => setPage({ name: 'create' })}
-          onEdit={(request) => setPage({ name: 'edit', request })}
-        />
-      )}
-
-      {page.name === 'create' && <CreateRequestPage onBack={goToList} />}
-
-      {page.name === 'edit' && <EditRequestPage request={page.request} onBack={goToList} />}
+      <Routes>
+        <Route path="/" element={<Navigate to="/requests" replace />} />
+        <Route path="/requests" element={<RequestsPage />} />
+        <Route path="/requests/new" element={<CreateRequestPage />} />
+        <Route path="/requests/:id/edit" element={<EditRequestPage />} />
+        <Route path="*" element={<Navigate to="/requests" replace />} />
+      </Routes>
     </main>
   )
 }

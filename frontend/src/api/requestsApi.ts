@@ -28,6 +28,12 @@ export const getRequests = async (filters: RequestFilters) => {
   return parseJsonResponse<ServiceRequest[]>(response, 'Could not load service requests.')
 }
 
+export const getRequestById = async (id: number) => {
+  const response = await fetch(`${API_URL}/${id}`)
+
+  return parseJsonResponse<ServiceRequest>(response, 'Could not load the service request.')
+}
+
 export const createRequest = async (formData: RequestFormData) => {
   const response = await fetch(API_URL, {
     method: 'POST',

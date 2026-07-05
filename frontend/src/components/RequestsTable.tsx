@@ -1,18 +1,24 @@
+import { Link } from 'react-router-dom'
 import type { ServiceRequest } from '../types/request'
 
 type RequestsTableProps = {
   requests: ServiceRequest[]
   isLoading: boolean
-  onCreate: () => void
-  onEdit: (request: ServiceRequest) => void
   onDelete: (id: number) => void
 }
+
+const formatCreatedAt = (createdAt: string) =>
+  new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  }).format(new Date(createdAt))
 
 export function RequestsTable({
   requests,
   isLoading,
-  onCreate,
-  onEdit,
   onDelete,
 }: RequestsTableProps) {
   return (
@@ -21,9 +27,9 @@ export function RequestsTable({
         <h2>Requests</h2>
         <div className="heading-actions">
           {isLoading && <span>Loading...</span>}
-          <button type="button" className="primary-button" onClick={onCreate}>
+          <Link className="primary-button" to="/requests/new">
             New request
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -32,12 +38,12 @@ export function RequestsTable({
           <thead>
             <tr>
               <th>Title</th>
-              <th>Requester</th>
-              <th>Department</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
+                  <th>Requester</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Created at</th>
+                  <th>Actions</th>
+                </tr>
           </thead>
           <tbody>
             {requests.length === 0 && !isLoading ? (
@@ -60,12 +66,16 @@ export function RequestsTable({
                       {request.status.replace('_', ' ')}
                     </span>
                   </td>
-                  <td>{new Date(request.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    <time className="created-at" dateTime={request.createdAt}>
+                      {formatCreatedAt(request.createdAt)}
+                    </time>
+                  </td>
                   <td>
                     <div className="row-actions">
-                      <button type="button" className="ghost-button" onClick={() => onEdit(request)}>
+                      <Link className="ghost-button" to={`/requests/${request.id}/edit`}>
                         Edit
-                      </button>
+                      </Link>
                       <button
                         type="button"
                         className="danger-button"

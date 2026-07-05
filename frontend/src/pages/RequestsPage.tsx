@@ -12,12 +12,7 @@ const defaultFilters: RequestFiltersType = {
   status: '',
 }
 
-type RequestsPageProps = {
-  onCreate: () => void
-  onEdit: (request: ServiceRequest) => void
-}
-
-export function RequestsPage({ onCreate, onEdit }: RequestsPageProps) {
+export function RequestsPage() {
   const [requests, setRequests] = useState<ServiceRequest[]>([])
   const [filters, setFilters] = useState<RequestFiltersType>(defaultFilters)
   const [isLoading, setIsLoading] = useState(false)
@@ -64,8 +59,6 @@ export function RequestsPage({ onCreate, onEdit }: RequestsPageProps) {
       <RequestsTable
         requests={requests}
         isLoading={isLoading}
-        onCreate={onCreate}
-        onEdit={onEdit}
         onDelete={handleDelete}
       />
     </>
