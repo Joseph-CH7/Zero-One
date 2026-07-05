@@ -59,6 +59,18 @@ tbody tr:hover {
   text-align: center;
 }
 
+.created-at {
+  display: inline-flex;
+  width: max-content;
+  padding: 6px 9px;
+  border: 1px solid rgba(147, 197, 253, 0.18);
+  border-radius: 7px;
+  color: var(--blue-100);
+  background: rgba(15, 23, 42, 0.58);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .status {
   width: max-content;
   padding: 5px 9px;

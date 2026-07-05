@@ -6,3 +6,9 @@
   color: #fecaca;
   background: rgba(127, 29, 29, 0.28);
 }
+
+.alert-info {
+  border-color: rgba(147, 197, 253, 0.45);
+  color: var(--blue-100);
+  background: rgba(37, 99, 235, 0.2);
+}
