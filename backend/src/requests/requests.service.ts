@@ -26,7 +26,11 @@ export class RequestsService {
                 mode:'insensitive'
             }
             :undefined
-        }
+        },
+        orderBy: [
+            { updatedAt: 'desc' },
+            { createdAt: 'desc' },
+        ],
     });
     }
 

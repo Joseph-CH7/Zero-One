@@ -7,14 +7,14 @@ type RequestsTableProps = {
   onDelete: (id: number) => void
 }
 
-const formatCreatedAt = (createdAt: string) =>
+const formatDateTime = (dateTime: string) =>
   new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
-  }).format(new Date(createdAt))
+  }).format(new Date(dateTime))
 
 export function RequestsTable({
   requests,
@@ -42,13 +42,14 @@ export function RequestsTable({
                   <th>Department</th>
                   <th>Status</th>
                   <th>Created at</th>
+                  <th>Updated at</th>
                   <th>Actions</th>
                 </tr>
           </thead>
           <tbody>
             {requests.length === 0 && !isLoading ? (
               <tr>
-                <td className="empty-state" colSpan={6}>
+                <td className="empty-state" colSpan={7}>
                   No service requests found.
                 </td>
               </tr>
@@ -68,7 +69,12 @@ export function RequestsTable({
                   </td>
                   <td>
                     <time className="created-at" dateTime={request.createdAt}>
-                      {formatCreatedAt(request.createdAt)}
+                      {formatDateTime(request.createdAt)}
+                    </time>
+                  </td>
+                  <td>
+                    <time className="created-at" dateTime={request.updatedAt}>
+                      {formatDateTime(request.updatedAt)}
                     </time>
                   </td>
                   <td>

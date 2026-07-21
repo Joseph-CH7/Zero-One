@@ -18,6 +18,7 @@ const parseJsonResponse = async <T>(response: Response, errorMessage: string): P
     throw new Error(errorMessage)
   }
 
+  /*Even though we are returning T, the return value if actually wrapped in a promise because of async */
   return (await response.json()) as T
 }
 
